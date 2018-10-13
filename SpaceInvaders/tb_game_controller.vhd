@@ -1,0 +1,129 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+library modelsim_lib;
+use modelsim_lib.util.all;
+library ieee;
+use ieee.std_logic_1164.all;
+use IEEE.numeric_std.ALL;
+library work;
+use work.all;
+
+entity tb_game_controller is
+end tb_game_controller;
+
+architecture behaviour of tb_game_controller is
+	component game_controller is
+	Port (
+	clk             : in std_logic; -- Clock for the system
+        rst             : in std_logic; -- Resets the state machine
+
+        -- Inputs
+        shoot           : in std_logic; -- User shoot
+        move_left       : in std_logic; -- User left
+        move_right      : in std_logic; -- User right
+		  
+	pixel_x         : in integer; -- X position of the cursor
+	pixel_y		: in integer; -- Y position of the cursor
+	--tb_score : in integer;
+        
+		  -- Outputs
+        pixel_color		: out std_logic_vector (2 downto 0);
+        cur_state 		: out std_logic_vector (2 downto 0)
+         );
+	end component;
+	
+		
+		signal clk_in		: std_logic;
+		signal rst_in		: std_logic;
+		signal shoot_in	        : std_logic;
+		signal move_left_in	: std_logic;
+		signal move_right_in    : std_logic;
+		signal pixel_x_in 	: integer;
+		signal pixel_y_in       : integer;
+		--signal tb_score_in      : integer;
+		
+		signal pixel_color_out   : std_logic_vector (2 downto 0);
+		signal cur_state_out	 : std_logic_vector(2 downto 0);
+		
+		constant clk_period : time := 10 ns;
+		
+		begin
+
+	dut: game_controller
+	port map(
+		clk => clk_in,
+		rst => rst_in,
+		shoot => shoot_in,
+		move_left => move_left_in,
+		move_right => move_left_in,
+		pixel_x => pixel_x_in,
+		pixel_y => pixel_y_in,
+		pixel_color => pixel_color_out,
+		--tb_score => tb_score_in,
+		cur_state => cur_state_out
+		
+		
+	);
+	
+clk_process: process
+	begin
+		clk_in <= '0';
+		wait for clk_period/2;
+		clk_in <= '1';
+		wait for clk_period/2;
+	end process;
+	
+	init: process
+	begin
+		wait for clk_period;
+		rst_in <= '1';
+		assert cur_state_out = "001" report "Error" severity Error;
+
+		wait for clk_period;
+		rst_in <= '0';
+		wait;
+	end process;
+	
+	test: process
+	begin
+		wait for clk_period * 3;
+		--pregame / intial state
+		shoot_in <= '0';
+		--tb_score_in <= 0 ;
+		wait for clk_period;
+		assert cur_state_out = "001" report "Error" severity Error;
+		
+		--gameplay state
+		shoot_in <= '1';
+		wait for clk_period;
+		assert cur_state_out = "010" report "Error" severity Error;
+
+		
+		
+	wait for clk_period;
+		-- gameover state
+		--game_controller_instance.ship_life_ctr = 0;
+		shoot_in <= '0';
+		--tb_score_in <=60;
+		signal_force("tb_game_controller/dut/score","60");
+		wait for clk_period;
+		assert cur_state_out = "011" report "Error" severity Error;
+
+		
+
+		
+	assert false report "Game Controller test Sucess!" severity failure;
+	end process;
+end behaviour;
+
+		
+		
+	
+	
+
+	
+	
+	
+

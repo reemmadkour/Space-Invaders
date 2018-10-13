@@ -1,0 +1,28 @@
+C:/lab4_222/tb_game_controller.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/lab4_222/tb_game_controller.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity tb_game_controller
+-- Compiling architecture behaviour of tb_game_controller
+
+} {} {}} C:/lab4_222/clock_divider.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/lab4_222/clock_divider.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity clock_divider
+-- Compiling architecture behaviour of clock_divider
+
+} {} {}} C:/lab4_222/sprite_rom.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/lab4_222/sprite_rom.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity sprite_rom
+-- Compiling architecture Behavioral of sprite_rom
+
+} {} {}}
